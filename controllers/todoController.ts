@@ -14,15 +14,14 @@ export const createTodo = async (req: Request, res: Response) => {
     const newTodo = new Todo({
       todo,
       completed,
-      tags
+      tags,
     });
 
     await newTodo.save();
     res.status(201).json(newTodo);
   } catch (err: any) {
     console.error(err.message);
-    // res.status(500).send("Server Error");
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -32,7 +31,7 @@ export const getTodos = async (req: Request, res: Response) => {
     res.status(200).json(todos);
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -54,7 +53,7 @@ export const updateTodo = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Todo updated", updatedTodo });
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -67,6 +66,6 @@ export const deleteTodo = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Todo is successfully deleted" });
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({ message: "Server Error" });
   }
 };

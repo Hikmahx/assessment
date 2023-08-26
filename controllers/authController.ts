@@ -23,7 +23,7 @@ export const getLoggedInUser = async (req: AuthRequest, res: Response) => {
     res.json(user);
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -73,7 +73,7 @@ export const authenticateUser = async (req: AuthRequest, res: Response) => {
     );
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -95,7 +95,8 @@ export const updateUser = async (req: AuthRequest, res: Response) => {
       // IF CURRENT PASSWORD ISN'T GIVEN
       if (!req.body.currentPassword) {
         return res.status(400).json({
-          message: "Provide your current password before you can update your password",
+          message:
+            "Provide your current password before you can update your password",
         });
       }
       let salt = await bcrypt.genSalt(10);
@@ -123,7 +124,7 @@ export const updateUser = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ message: "User doesn't exist" });
     }
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -142,6 +143,6 @@ export const deleteUser = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ message: "User doesn't exist" });
     }
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({ message: "Server Error" });
   }
 };

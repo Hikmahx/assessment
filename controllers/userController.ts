@@ -22,7 +22,7 @@ export const getUserById = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "User doesn't exist" });
     }
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -41,7 +41,7 @@ export const registerUser = async (req: Request, res: Response) => {
     let user = await User.findOne({ email });
 
     if (user) {
-      return res.status(400).send("User already exists");
+      return res.status(400).json({ message: "User already exists" });
     }
 
     // CREATE A NEW USER
@@ -76,6 +76,6 @@ export const registerUser = async (req: Request, res: Response) => {
     );
   } catch (err: any) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({ message: "Server Error" });
   }
 };
