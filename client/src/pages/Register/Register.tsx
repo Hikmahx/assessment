@@ -49,6 +49,11 @@ const Register = () => {
     dispatch(registerUser(data));
   };
 
+  useEffect(() => {
+    removeErrMsg()
+      // eslint-disable-next-line
+    }, []);  
+
   const removeErrMsg = () => {
     dispatch(removeError());
   };

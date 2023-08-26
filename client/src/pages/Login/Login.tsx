@@ -43,6 +43,12 @@ const Login = () => {
     console.log(data)
   };
 
+  useEffect(() => {
+    // Error message is remove in case user makes an error in other pages
+    removeErrMsg()
+      // eslint-disable-next-line
+    }, []);  
+
   const removeErrMsg = () => {
     dispatch(removeError());
   };
