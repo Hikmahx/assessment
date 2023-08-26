@@ -69,7 +69,7 @@ const Home = () => {
                   <p className="text-sm">Loading...</p>
                 ) : (
                   <Link
-                    to="/"
+                    to="/login"
                     className="w-auto flex text-sm items-center justify-center border-b border-white text-white hover:border-none transtion-all font-semibold"
                   >
                     Sign in
