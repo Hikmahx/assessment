@@ -10,17 +10,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 const MyRoutes = () => {
-  // let user = false;
-
   const { userInfo } = useSelector((state: RootState) => state.auth);
 
   return (
     <Routes>
       <Route path="*" element={<NotFound />} />
-      <Route
-        path="/"
-        element={!userInfo ? <Navigate to="/login" replace={true} /> : <Home />}
-      />
+      <Route path="/" element={<Home />} />
       <Route path="" element={<FormLayout />}>
         <Route
           path="/login"
