@@ -48,10 +48,10 @@ export const updateTodo = async (req: Request, res: Response) => {
     );
 
     if (!updatedTodo) {
-      return res.status(404).json({ msg: "Todo not found" });
+      return res.status(404).json({ message: "Todo not found" });
     }
 
-    res.status(200).json({ msg: "Todo updated", updatedTodo });
+    res.status(200).json({ message: "Todo updated", updatedTodo });
   } catch (err: any) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -62,9 +62,9 @@ export const deleteTodo = async (req: Request, res: Response) => {
   try {
     const todo = await Todo.findByIdAndDelete(req.params.id);
     if (!todo) {
-      return res.status(404).json({ msg: "Todo not found" });
+      return res.status(404).json({ message: "Todo not found" });
     }
-    res.status(200).json({ msg: "Todo is successfully deleted" });
+    res.status(200).json({ message: "Todo is successfully deleted" });
   } catch (err: any) {
     console.error(err.message);
     res.status(500).send("Server Error");

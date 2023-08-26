@@ -18,7 +18,7 @@ export const getLoggedInUser = async (req: AuthRequest, res: Response) => {
   try {
     const user = await User.findById(req.user?.id).select("-password");
     if (!user) {
-      return res.status(400).json({ msg: "User doesn't exist" });
+      return res.status(400).json({ message: "User doesn't exist" });
     }
     res.json(user);
   } catch (err: any) {
@@ -42,12 +42,12 @@ export const authenticateUser = async (req: AuthRequest, res: Response) => {
     const user: IUser | null = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ msg: "Email is invalid" });
+      return res.status(400).json({ message: "Email is invalid" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: "Password is invalid" });
+      return res.status(400).json({ message: "Password is invalid" });
     }
 
     const payload = {
@@ -88,21 +88,21 @@ export const updateUser = async (req: AuthRequest, res: Response) => {
     let newPassword;
 
     if (!user) {
-      return res.status(400).json({ msg: "User doesn't exist" });
+      return res.status(400).json({ message: "User doesn't exist" });
     }
     // CHECK IF THE USER WANTS TO UPDATE THEIR PASSWORD
     if (req.body.password && user != null) {
       // IF CURRENT PASSWORD ISN'T GIVEN
       if (!req.body.currentPassword) {
         return res.status(400).json({
-          msg: "Provide your current password before you can update your password",
+          message: "Provide your current password before you can update your password",
         });
       }
       let salt = await bcrypt.genSalt(10);
       newPassword = await bcrypt.hash(req.body.password, salt);
       const isMatch = await bcrypt.compare(currentPassword, user.password);
       if (!isMatch) {
-        return res.status(400).json({ msg: "Old password isn't correct" });
+        return res.status(400).json({ message: "Old password isn't correct" });
       }
     }
 
@@ -120,7 +120,7 @@ export const updateUser = async (req: AuthRequest, res: Response) => {
     res.status(200).json(updatedUser);
   } catch (err: any) {
     if (err.name == "CastError") {
-      return res.status(400).json({ msg: "User doesn't exist" });
+      return res.status(400).json({ message: "User doesn't exist" });
     }
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -134,12 +134,12 @@ export const deleteUser = async (req: AuthRequest, res: Response) => {
   try {
     const user: IUser | null = await User.findByIdAndDelete(req.user?.id);
     if (!user) {
-      return res.status(400).json({ msg: "User doesn't exist" });
+      return res.status(400).json({ message: "User doesn't exist" });
     }
-    res.status(200).json({ msg: "User is successfully deleted" });
+    res.status(200).json({ message: "User is successfully deleted" });
   } catch (err: any) {
     if (err.name == "CastError") {
-      return res.status(400).json({ msg: "User doesn't exist" });
+      return res.status(400).json({ message: "User doesn't exist" });
     }
     console.error(err.message);
     res.status(500).send("Server Error");

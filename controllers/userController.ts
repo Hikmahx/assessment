@@ -14,12 +14,12 @@ export const getUserById = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.params.id).select("-password");
     if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
     res.status(200).json(user);
   } catch (err: any) {
     if (err.name === "CastError") {
-      return res.status(400).json({ msg: "User doesn't exist" });
+      return res.status(400).json({ message: "User doesn't exist" });
     }
     console.error(err.message);
     res.status(500).send("Server Error");
