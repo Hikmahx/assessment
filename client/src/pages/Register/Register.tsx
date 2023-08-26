@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import AuthBg from "../../assets/user/auth-bg.jpg";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/reducers/authSlice";
+import { registerUser, removeError } from "../../redux/reducers/authSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { RootState } from "../../redux/store";
@@ -15,12 +14,21 @@ const Register = () => {
     (state: RootState) => state.auth
   );
   const dispatch: ThunkDispatch<RootState, null, AnyAction> = useDispatch();
+
+  type FormValues = {
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  };
+
   const {
     register,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
     getValues,
-  } = useForm({
+  } = useForm<FormValues>({
     mode: "onChange",
   });
 
@@ -37,8 +45,12 @@ const Register = () => {
     // eslint-disable-next-line
   }, [navigate, userInfo, success]);
 
-  const submitForm = (data: any) => {
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     dispatch(registerUser(data));
+  };
+
+  const removeErrMsg = () => {
+    dispatch(removeError());
   };
 
   return (
@@ -50,7 +62,8 @@ const Register = () => {
           </h1>
           <form
             className="flex flex-wrap justify-between w-full"
-            onSubmit={handleSubmit(submitForm)}
+            onSubmit={handleSubmit(onSubmit)}
+            onChange={removeErrMsg}
           >
             {error && (
               <p className=" absolute text-[#f96464] text-sm top-28">
@@ -67,6 +80,11 @@ const Register = () => {
                   required: "Please enter your first name",
                 })}
               />
+              {errors.firstname && (
+                <p className="text-sm text-red-500 italic">
+                  {errors.firstname.message}
+                </p>
+              )}
               <label
                 htmlFor="firstname"
                 className="absolute left-0 -top-3.5 text-dark-grayish-blue text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-blue peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-dark-grayish-blue peer-focus:text-sm"
@@ -85,7 +103,11 @@ const Register = () => {
                   required: "Please enter your last name",
                 })}
               />
-
+              {errors.lastname && (
+                <p className="text-sm text-red-500 italic">
+                  {errors.lastname.message}
+                </p>
+              )}
               <label
                 htmlFor="lastname"
                 className="absolute left-0 -top-3.5 text-dark-grayish-blue text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-blue peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-dark-grayish-blue peer-focus:text-sm"
@@ -108,7 +130,11 @@ const Register = () => {
                   },
                 })}
               />
-
+              {errors.email && (
+                <p className="text-sm text-red-500 italic">
+                  {errors.email.message}
+                </p>
+              )}
               <label
                 htmlFor="email"
                 className="absolute left-0 -top-3.5 text-dark-grayish-blue text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-blue peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-dark-grayish-blue peer-focus:text-sm"
@@ -123,7 +149,7 @@ const Register = () => {
                 type="password"
                 className="peer h-10 w-full border-b-2 border-grayish-blue text-very-dark-blue placeholder-transparent focus:outline-none focus:bordr-zinc-600e"
                 placeholder="Password"
-                {...register("userPassword", {
+                {...register("password", {
                   required: "Please enter your password",
                   minLength: {
                     value: 6,
@@ -131,6 +157,11 @@ const Register = () => {
                   },
                 })}
               />
+              {errors.password && (
+                <p className="text-sm text-red-500 italic">
+                  {errors.password.message}
+                </p>
+              )}
               <label
                 htmlFor="password"
                 className="absolute left-0 -top-3.5 text-dark-grayish-blue text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-blue peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-dark-grayish-blue peer-focus:text-sm"
@@ -148,11 +179,16 @@ const Register = () => {
                 {...register("confirmPassword", {
                   required: true,
                   validate: (value) => {
-                    const { userPassword } = getValues();
-                    return userPassword === value || "Passwords should match";
+                    const { password } = getValues();
+                    return password === value || "Passwords should match";
                   },
                 })}
               />
+              {errors.confirmPassword && (
+                <p className="text-sm text-red-500 italic">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
               <label
                 htmlFor="confirm-password"
                 className="absolute whitespace-nowrap left-0 -top-3.5 text-dark-grayish-blue text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-blue peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-dark-grayish-blue peer-focus:text-sm"
