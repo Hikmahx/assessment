@@ -20,6 +20,7 @@ const Login = () => {
     email: string;
     password: string;
   };
+
   const {
     register,
     handleSubmit,
@@ -39,6 +40,7 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     dispatch(loginUser(data));
+    console.log(data)
   };
 
   const removeErrMsg = () => {
@@ -55,19 +57,23 @@ const Login = () => {
             onSubmit={handleSubmit(onSubmit)}
             onChange={removeErrMsg}
           >
-            {error && (
-              <p className=" absolute text-[#f96464] text-sm top-28">
-                {errMsg}
-              </p>
+            {error && typeof errMsg === "string" && (
+              <p className="absolute text-[#f96464] text-sm top-28">{errMsg}</p>
             )}
             <div className="relative w-full  mb-2 py-3">
               <input
                 id="email"
-                type="text"
-                className="peer h-10 w-full border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-stone-500"
+                // name="email"
+                type="email"
+                className="peer h-10 w-full border-b-2 border-grayish-blue text-very-dark-blue placeholder-transparent focus:outline-none focus:bordr-zinc-600e"
                 placeholder="email"
-                {...register("email")}
-                required
+                {...register("email", {
+                  required: "Please include an email",
+                  pattern: {
+                    value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                    message: "Please include a valid email",
+                  },
+                })}
               />
               {errors.email && (
                 <p className="text-sm text-red-500 italic">
@@ -76,7 +82,7 @@ const Login = () => {
               )}
               <label
                 htmlFor="email"
-                className="absolute left-0 -top-3.5 text-gray-800 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-blue peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-800 peer-focus:text-sm"
+                className="absolute left-0 -top-3.5 text-dark-grayish-blue text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-blue peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-dark-grayish-blue peer-focus:text-sm"
               >
                 Email
               </label>
@@ -85,10 +91,15 @@ const Login = () => {
               <input
                 id="password"
                 type="password"
-                className="peer h-10 w-full border-b-2 border-gray-300 placeholder-transparent focus:outline-none focus:border-stone-500"
+                className="peer h-10 w-full border-b-2 border-grayish-blue text-very-dark-blue placeholder-transparent focus:outline-none focus:bordr-zinc-600e"
                 placeholder="Password"
-                {...register("password")}
-                required
+                {...register("password", {
+                  required: "Please enter your password",
+                  minLength: {
+                    value: 6,
+                    message: "Password shouldn't be less than 6 characters",
+                  },
+                })}
               />
               {errors.password && (
                 <p className="text-sm text-red-500 italic">
@@ -97,7 +108,7 @@ const Login = () => {
               )}
               <label
                 htmlFor="password"
-                className="absolute left-0 -top-3.5 text-gray-800 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-blue peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-800 peer-focus:text-sm"
+                className="absolute left-0 -top-3.5 text-dark-grayish-blue text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-grayish-blue peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-dark-grayish-blue peer-focus:text-sm"
               >
                 Password
               </label>
