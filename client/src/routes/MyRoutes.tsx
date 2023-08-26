@@ -6,28 +6,30 @@ import Register from "../pages/Register/Register";
 // import Layout from "../components/layout/Layout";
 import NotFound from "../pages/NotFound";
 import FormLayout from "../components/layout/FormLayout";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const MyRoutes = () => {
-  const user = false;
+  // let user = false;
+
+  const { userInfo } = useSelector((state: RootState) => state.auth);
 
   return (
     <Routes>
       <Route path="*" element={<NotFound />} />
       <Route
         path="/"
-        element={!user ? <Navigate to="/login" replace={true} /> : <Home />}
+        element={!userInfo ? <Navigate to="/login" replace={true} /> : <Home />}
       />
-    <Route path="" element={<FormLayout />}>
-
-      <Route
-        path="/login"
-        element={user ? <Navigate to="/" replace={true} /> : <Login />}
-      />
-      <Route
-        path="/register"
-        element={user ? <Navigate to="/" replace={true} /> : <Register />}
-      />
+      <Route path="" element={<FormLayout />}>
+        <Route
+          path="/login"
+          element={userInfo ? <Navigate to="/" replace={true} /> : <Login />}
+        />
+        <Route
+          path="/register"
+          element={userInfo ? <Navigate to="/" replace={true} /> : <Register />}
+        />
       </Route>
     </Routes>
   );
