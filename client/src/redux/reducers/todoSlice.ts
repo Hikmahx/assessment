@@ -25,7 +25,7 @@ export const addTodo = createAsyncThunk(
   "todos/addTodo",
   async ({ todo, completed }: NewTodo, { rejectWithValue }) => {
     try {
-      await axios.post(API_LINK, { todo, completed });
+      await axios.post(API_LINK, { todo, completed }, config);
       let { data } = await axios.get(API_LINK, config);
       const todos = await data;
       return todos;
