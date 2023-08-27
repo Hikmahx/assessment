@@ -1,13 +1,24 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useSelector } from "react-redux";
 import TodoItem from "../components/TodoItem";
 import { RootState } from "../redux/store";
 import Loading from "./Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
+import { removeError } from "../redux/reducers/authSlice";
+
 
 const Todos = () => {
   const { loading, error, errMessage, todos } = useSelector(
     (state: RootState) => state.todo
   );
+  const dispatch: ThunkDispatch<RootState, null, AnyAction> = useDispatch();
+
+  useEffect(() => {
+    dispatch(removeError());
+      // eslint-disable-next-line
+    }, []);  
+
 
 
     return (
@@ -34,8 +45,8 @@ const Todos = () => {
       </div>
       :
       <div className="mt-16 lg:mt-20 lg:text-lg">
-        <p className="text-center truncate">{errMessage}</p>
-        <p className="text-center">Please reload page</p>
+        <p className="text-center truncate text-white">{errMessage}</p>
+        {/* <p className="text-center">Please reload page</p> */}
       </div>
       }
       </>

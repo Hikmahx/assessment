@@ -10,14 +10,24 @@ interface NewTodo {
   todo: string;
   completed: boolean;
 }
+const userToken = localStorage.getItem("userToken")
+  ? localStorage.getItem("userToken")
+  : null;
+
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+    "x-auth-token": userToken,
+  },
+};
 
 export const addTodo = createAsyncThunk(
   "todos/addTodo",
   async ({ todo, completed }: NewTodo, { rejectWithValue }) => {
     try {
       await axios.post(API_LINK, { todo, completed });
-      let todosData = await axios.get(API_LINK);
-      const todos = await todosData.data;
+      let { data } = await axios.get(API_LINK, config);
+      const todos = await data;
       return todos;
     } catch (err) {
       const error: AxiosError<KnownError> = err as any;
@@ -33,7 +43,7 @@ export const getTodos = createAsyncThunk(
   "todos/getTodos",
   async (_, { rejectWithValue }) => {
     try {
-      let { data } = await axios.get(API_LINK);
+      let { data } = await axios.get(API_LINK, config);
       const todos = await data;
       return todos;
     } catch (err) {
@@ -50,9 +60,9 @@ export const updateTodo = createAsyncThunk(
   "todos/updateTodo",
   async ({ id, dataInfo }: any, { rejectWithValue }) => {
     try {
-      await axios.put(`${API_LINK}/${id}`, dataInfo);
+      await axios.put(`${API_LINK}/${id}`, dataInfo, config);
 
-      let { data } = await axios.get(API_LINK);
+      let { data } = await axios.get(API_LINK, config);
       const todos = await data;
       return todos;
     } catch (err) {
@@ -69,9 +79,9 @@ export const deleteTodo = createAsyncThunk(
   "todos/deleteTodo",
   async (id: string | undefined, { rejectWithValue }) => {
     try {
-      await axios.delete(`${API_LINK}/${id}`);
+      await axios.delete(`${API_LINK}/${id}`, config);
 
-      let { data } = await axios.get(API_LINK);
+      let { data } = await axios.get(API_LINK, config);
       const todos = await data;
       return todos;
     } catch (err) {
@@ -96,7 +106,11 @@ const initialState = {
 const TodoSlice = createSlice({
   name: "todo",
   initialState,
-  reducers: {},
+  reducers: {
+    clearTodos: (state) => {
+      state.todos = [];
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(addTodo.pending, (state, action) => {
       state.loading = true;
@@ -157,6 +171,6 @@ const TodoSlice = createSlice({
   },
 });
 
-// export const {  } = TodoSlice.actions;
+export const { clearTodos } = TodoSlice.actions;
 
 export default TodoSlice.reducer;

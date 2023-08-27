@@ -6,6 +6,7 @@ import {
   deleteTodo,
 } from "../controllers/todoController";
 import { body } from "express-validator";
+import { verifyToken } from "../middlewares/authMiddleware";
 
 const router = express.Router();
 
@@ -13,11 +14,11 @@ router.post(
   "/",
   body("todo", "Todo is required").not().isEmpty(),
   body("completed", "completed is required").not().isEmpty(),
-
+  verifyToken,
   createTodo
 );
-router.get("/", getTodos);
-router.put("/:id", updateTodo);
-router.delete("/:id", deleteTodo);
+router.get("/", verifyToken, getTodos);
+router.put("/:id", verifyToken, updateTodo);
+router.delete("/:id", verifyToken, deleteTodo);
 
 module.exports = router;

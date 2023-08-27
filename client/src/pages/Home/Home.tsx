@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import InputForm from "../../components/InputForm";
 import Todos from "../../components/Todos";
 import { getUserDetails, logout } from "../../redux/reducers/authSlice";
-import { getTodos } from "../../redux/reducers/todoSlice";
+import { getTodos, clearTodos } from "../../redux/reducers/todoSlice";
 import { RootState } from "../../redux/store";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const dispatch: ThunkDispatch<RootState, null, AnyAction> = useDispatch();
   const [open, setOpen] = useState(false);
+  const { userInfo, loading, userToken } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     dispatch(getUserDetails());
@@ -20,7 +21,6 @@ const Home = () => {
     // eslint-disable-next-line
   }, []);
 
-  const { userInfo, loading } = useSelector((state: RootState) => state.auth);
 
   const Header = () => {
     return (
@@ -85,6 +85,7 @@ const Home = () => {
             <div
               onClick={() => {
                 dispatch(logout());
+                dispatch(clearTodos());
                 setOpen(false);
               }}
               className="bg-white cursor-pointer rounded-md p-4 shadow-lg flex items-center w-fit absolute right-4 lg:right-0 top-10  z-10"
