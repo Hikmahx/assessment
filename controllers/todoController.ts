@@ -1,4 +1,4 @@
-const Todo = require("../models/Todo");
+import Todo from "../models/Todo";
 import { Response, Request } from "express";
 import { validationResult } from "express-validator";
 import mongoose from "mongoose";

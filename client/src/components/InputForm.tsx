@@ -1,7 +1,13 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
+import { RootState } from "../redux/store";
+import { addTodo } from "../redux/reducers/todoSlice";
 
 const InputForm = () => {
+  const dispatch: ThunkDispatch<RootState, null, AnyAction> = useDispatch();
 
   type FormValues = {
     newTodo: string;
@@ -15,9 +21,12 @@ const InputForm = () => {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    // dispatch(
-    //   addTodo({todo: data})
-    // );
+    dispatch(
+      addTodo({
+        todo: data.newTodo,
+        completed: false,
+      })
+    );
     console.log(data);
     reset();
   };

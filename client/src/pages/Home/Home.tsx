@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import InputForm from "../../components/InputForm";
 import Todos from "../../components/Todos";
 import { getUserDetails, logout } from "../../redux/reducers/authSlice";
+import { getTodos } from "../../redux/reducers/todoSlice";
 import { RootState } from "../../redux/store";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
@@ -14,6 +15,8 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getUserDetails());
+    dispatch(getTodos());
+
     // eslint-disable-next-line
   }, []);
 
