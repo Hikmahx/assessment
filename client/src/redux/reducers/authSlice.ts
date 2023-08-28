@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { RootState } from '../store'; // Adjust the path as needed
+import { RootState } from '../store';
 
 interface RegisterUser {
   firstname: string;
@@ -40,7 +40,7 @@ export const registerUser = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      await axios.post("http://localhost:5000/api/users", data, config);
+      await axios.post("/api/users", data, config);
     } catch (err: any) {
       console.log("Error response:", err.response.data);
 
@@ -60,7 +60,7 @@ export const loginUser = createAsyncThunk(
       };
 
       let { data } = await axios.post(
-        "http://localhost:5000/api/auth",
+        "/api/auth",
         { email, password },
         config
       );
@@ -91,7 +91,7 @@ export const getUserDetails = createAsyncThunk(
         },
       };
 
-      let { data } = await axios.get("http://localhost:5000/api/auth", config);
+      let { data } = await axios.get("/api/auth", config);
 
       return data;
     } catch (err: any) {
