@@ -19,9 +19,9 @@ app.use("/api/auth", require("./routes/authRoute"));
 app.use("/api/users", require("./routes/userRoute"));
 app.use("/api/todos", require("./routes/todoRoute"));
 
-app.get("/", (req: any, res: any) => {
+app.get("/", () => {
   console.log("Hello world");
-  return res.status(200).json({ message: "Hi there! This is a backend project for todo app for straitpay assessment. Check my GitHub: https://github.com/Hikmahx/assessment for more info" });
+  // return res.status(200).json({ message: "Hi there! This is a backend project for todo app for straitpay assessment. Check my GitHub: https://github.com/Hikmahx/assessment for more info" });
 });
 
 app.listen(PORT, () => console.log("This is listening on PORT: " + PORT));
