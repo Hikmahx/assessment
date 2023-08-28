@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
+import { RootState } from '../store'; // Adjust the path as needed
+
 interface KnownError {
   errMessage: string;
 }
@@ -10,21 +12,39 @@ interface NewTodo {
   todo: string;
   completed: boolean;
 }
-const userToken = localStorage.getItem("userToken")
-  ? localStorage.getItem("userToken")
-  : null;
 
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    "x-auth-token": userToken,
-  },
-};
+interface TodoItem {
+  _id: string; 
+  todo: string;
+  completed: boolean;
+}
+
+interface TodoState {
+  loading: boolean;
+  error: boolean;
+  errMessage: string;
+  todos: TodoItem[]; // Make sure it's TodoItem[]
+}
+
+// let userToken = localStorage.getItem("userToken")
+//   ? localStorage.getItem("userToken")
+//   : null;
+
 
 export const addTodo = createAsyncThunk(
   "todos/addTodo",
-  async ({ todo, completed }: NewTodo, { rejectWithValue }) => {
+  async ({ todo, completed }: NewTodo, { getState, rejectWithValue }) => {
     try {
+      const { userToken } = (getState() as RootState).auth;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          // "x-auth-token": userToken,
+          'x-auth-token': userToken,
+        },
+      };
+
       await axios.post(API_LINK, { todo, completed }, config);
       let { data } = await axios.get(API_LINK, config);
       const todos = await data;
@@ -41,8 +61,18 @@ export const addTodo = createAsyncThunk(
 
 export const getTodos = createAsyncThunk(
   "todos/getTodos",
-  async (_, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
+      const { userToken } = (getState() as RootState).auth;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          // "x-auth-token": userToken,
+          'x-auth-token': userToken,
+        },
+      };
+
       let { data } = await axios.get(API_LINK, config);
       const todos = await data;
       return todos;
@@ -58,8 +88,18 @@ export const getTodos = createAsyncThunk(
 
 export const updateTodo = createAsyncThunk(
   "todos/updateTodo",
-  async ({ id, dataInfo }: any, { rejectWithValue }) => {
+  async ({ id, dataInfo }: any, { getState, rejectWithValue }) => {
     try {
+      const { userToken } = (getState() as RootState).auth;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          // "x-auth-token": userToken,
+          'x-auth-token': userToken,
+        },
+      };
+
       await axios.put(`${API_LINK}/${id}`, dataInfo, config);
 
       let { data } = await axios.get(API_LINK, config);
@@ -77,8 +117,18 @@ export const updateTodo = createAsyncThunk(
 
 export const deleteTodo = createAsyncThunk(
   "todos/deleteTodo",
-  async (id: string | undefined, { rejectWithValue }) => {
+  async (id: string | undefined, { getState, rejectWithValue }) => {
     try {
+      const { userToken } = (getState() as RootState).auth;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          // "x-auth-token": userToken,
+          'x-auth-token': userToken,
+        },
+      };
+
       await axios.delete(`${API_LINK}/${id}`, config);
 
       let { data } = await axios.get(API_LINK, config);
@@ -94,12 +144,11 @@ export const deleteTodo = createAsyncThunk(
   }
 );
 
-const initialState = {
+const initialState: TodoState = {
   todos: [],
-  todo: [],
   error: false,
   errMessage: "",
-  total: 0,
+  // total: 0,
   loading: false,
 };
 
@@ -109,6 +158,7 @@ const TodoSlice = createSlice({
   reducers: {
     clearTodos: (state) => {
       state.todos = [];
+      // userToken = null;
     },
   },
   extraReducers: (builder) => {

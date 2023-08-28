@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { RootState } from '../store'; // Adjust the path as needed
 
 interface RegisterUser {
   firstname: string;
@@ -77,12 +78,16 @@ export const loginUser = createAsyncThunk(
 
 export const getUserDetails = createAsyncThunk(
   "user/getUserDetails",
-  async (_, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
+
+      const { userToken } = (getState() as RootState).auth;
+
       const config = {
         headers: {
           "Content-Type": "application/json",
-          "x-auth-token": userToken,
+          // "x-auth-token": userToken,
+          'x-auth-token': userToken,
         },
       };
 
@@ -117,6 +122,7 @@ const authSlice = createSlice({
   reducers: {
     removeError: (state) => {
       state.error = false;
+      state.errMsg = ''
     },
     logout: (state) => {
       localStorage.removeItem("userToken"); // deletes token from storage
