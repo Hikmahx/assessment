@@ -1,10 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "outDir": "dist",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "outDir": "./dist", // Change this to your desired output directory
+    "rootDir": "./src", // Change this to your source code directory
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": ["src/*"] // Assuming your source code is in the "src" directory
+    }
   },
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts"], // Adjust this to match your source code structure
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
