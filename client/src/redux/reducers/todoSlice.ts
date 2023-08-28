@@ -6,7 +6,7 @@ interface KnownError {
   errMessage: string;
 }
 
-const API_LINK = `/api/todos`;
+const API_LINK = `https://straitpay-todo-assessment.onrender.com/api/todos`;
 
 interface NewTodo {
   todo: string;
@@ -174,7 +174,7 @@ const TodoSlice = createSlice({
     builder.addCase(addTodo.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = true;
-      state.errMessage = (payload as any).message;
+      state.errMessage = (payload as any).message  || "Error has occured";
     });
     builder.addCase(getTodos.pending, (state, action) => {
       state.loading = true;
@@ -188,7 +188,7 @@ const TodoSlice = createSlice({
     builder.addCase(getTodos.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = true;
-      state.errMessage = (payload as any).message;
+      state.errMessage = (payload as any).message  || "Error has occured";
     });
     builder.addCase(updateTodo.pending, (state, action) => {
       state.loading = true;
@@ -202,7 +202,7 @@ const TodoSlice = createSlice({
     builder.addCase(updateTodo.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = true;
-      state.errMessage = (payload as any).message;
+      state.errMessage = (payload as any).message  || "Error has occured";
     });
     builder.addCase(deleteTodo.pending, (state, action) => {
       state.loading = true;
@@ -216,7 +216,7 @@ const TodoSlice = createSlice({
     builder.addCase(deleteTodo.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = true;
-      state.errMessage = (payload as any).message;
+      state.errMessage = (payload as any).message  || "Error has occured";
     });
   },
 });

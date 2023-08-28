@@ -32,11 +32,13 @@ const Todos = () => {
             style={{ maxWidth: "34rem" }}
             className="mx-auto mt-7 text-xs sm:text-base lg:text-lg text-zinc-500"
           >
-            <ul className="w-full flex flex-col items-center relative bg-white transition-colors shadow-xl rounded overflow-hidden">
-              {todos.map((todo) => (
-                <TodoItem key={todo._id} todo={todo} />
-              ))}
-            </ul>
+            {todos.length > 0 && (
+              <ul className="w-full flex flex-col items-center relative bg-white transition-colors shadow-xl rounded overflow-hidden">
+                {todos.map((todo) => (
+                  <TodoItem key={todo._id} todo={todo} />
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       ) : (

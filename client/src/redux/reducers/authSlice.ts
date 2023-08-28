@@ -40,7 +40,7 @@ export const registerUser = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      await axios.post("/api/users", data, config);
+      await axios.post("https://straitpay-todo-assessment.onrender.com/api/users", data, config);
     } catch (err: any) {
       console.log("Error response:", err.response.data);
 
@@ -60,7 +60,7 @@ export const loginUser = createAsyncThunk(
       };
 
       let { data } = await axios.post(
-        "/api/auth",
+        "https://straitpay-todo-assessment.onrender.com/api/auth",
         { email, password },
         config
       );
@@ -91,7 +91,7 @@ export const getUserDetails = createAsyncThunk(
         },
       };
 
-      let { data } = await axios.get("/api/auth", config);
+      let { data } = await axios.get("https://straitpay-todo-assessment.onrender.com/api/auth", config);
 
       return data;
     } catch (err: any) {
