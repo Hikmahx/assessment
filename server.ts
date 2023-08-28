@@ -19,7 +19,8 @@ app.use("/api/auth", require("./routes/authRoute"));
 app.use("/api/users", require("./routes/userRoute"));
 app.use("/api/todos", require("./routes/todoRoute"));
 
-// app.get("/", () => {
+// Uncomment the following line if you want a default route
+// app.get("/", (req, res) => {
 //   console.log("Hello world");
 //   // return res.status(200).json({ message: "Hi there! This is a backend project for todo app for straitpay assessment. Check my GitHub: https://github.com/Hikmahx/assessment for more info" });
 // });
@@ -29,7 +30,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
 
   // Route all other requests to the React app
-  app.get('*', (req:any, res:any) => {
+  app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build/index.html'));
   });
 }
