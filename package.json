@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "assessment todo api backend",
   "main": "server.ts",
+  "engines": {
+    "node": ">=14.20.1"
+  },
   "scripts": {
     "start": "node server.ts",
     "server": "nodemon server.ts",
