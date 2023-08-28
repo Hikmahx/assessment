@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "CommonJS",
-    "outDir": "./dist", // Change this to your desired output directory
-    "rootDir": "./src", // Change this to your source code directory
+    "outDir": "./dist",
+    "rootDir": "./",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -12,9 +12,9 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "*": ["src/*"] // Assuming your source code is in the "src" directory
+      "*": ["*"] // Adjust to match the root directory
     }
   },
-  "include": ["src/**/*.ts"], // Adjust this to match your source code structure
+  "include": ["**/*.ts"], // Adjust this to include all TypeScript files
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
