@@ -32,7 +32,7 @@ const InputForm = () => {
   };
 
   return (
-    <div className="form-wrapper mx-6">
+    <div className="form-wrapper mx-6 relative">
       <div
         style={{ maxWidth: "34rem", top: "0.1rem" }}
         className="relative mx-auto h-12 lg:h-16 bg-white transition-colors rounded flex items-center"
@@ -50,17 +50,17 @@ const InputForm = () => {
             // onChange={(e) => e.target.value}
             type="text"
             id="newTodo"
-            className="bg-transparent w-full focus:outline-none px-3 pt-1 lg:px-6 text-xs sm:text-base lg:text-lg"
+            className="bg-transparent w-full focus:outline-none px-3 pt-1 lg:px-6 text-xs sm:text-base lg:text-lg placeholder:text-gray-400"
             placeholder="Create a new todo..."
             {...register("newTodo", {
               required: "Please include a search value",
               maxLength: {
                 value: 25,
-                message: "search value shouldn't be more than 25 characters",
+                message: "Too much",
               },
               minLength: {
                 value: 2,
-                message: "search value shouldn't be less than 2 characters",
+                message: "Too little",
               },
             })}
           />

@@ -8,11 +8,14 @@ import { RootState } from "../../redux/store";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { Link } from "react-router-dom";
+import bg from '../../assets/stacked-steps-haikei.svg'
 
 const Home = () => {
   const dispatch: ThunkDispatch<RootState, null, AnyAction> = useDispatch();
   const [open, setOpen] = useState(false);
-  const { userInfo, loading, userToken } = useSelector((state: RootState) => state.auth);
+  const { userInfo, loading } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   useEffect(() => {
     dispatch(getUserDetails());
@@ -124,15 +127,18 @@ const Home = () => {
           )}
         </div>
 
-        <h1 className="text-2xl lg:text-5xl font-bold text-white py-8 mx-auto text-center">
-          StraitPay Todo List
+        <h1 className="text-3xl lg:text-5xl font-bold text-white relative py-8 mx-auto text-center uppercase leading-widest">
+        Todo List
         </h1>
       </>
     );
   };
 
   return (
-    <div className="bg-primary min-h-screen py-12 px-4 ">
+    <div className="bg-primary lg:bg-gradient-to-r from-white to-primary from-80% to-80% w-full h-screen py-12 px-4 relative">
+      <img src={bg} alt="stacked background" 
+    className='absolute inset-0 w-full h-full object-cover object-right'
+      />
       <Header />
       <InputForm />
       <Todos />

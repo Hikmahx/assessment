@@ -7,7 +7,6 @@ import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { removeError } from "../redux/reducers/authSlice";
 
-
 const Todos = () => {
   const { loading, error, errMessage, todos } = useSelector(
     (state: RootState) => state.todo
@@ -16,42 +15,38 @@ const Todos = () => {
 
   useEffect(() => {
     dispatch(removeError());
-      // eslint-disable-next-line
-    }, []);  
+    // eslint-disable-next-line
+  }, []);
 
+  return (
+    <>
+      {!error ? (
+        <div className="todo-container mx-6 pb-10 relative">
+          {loading && (
+            <div className="flex justify-center mx-auto mt-6 lg:mt-4">
+              <Loading />
+            </div>
+          )}
 
-
-    return (
-      <>
-      {!error ?
-
-      <div className="todo-container mx-6 pb-10">
-        {loading && (
-          <div className="flex justify-center mx-auto mt-6 lg:mt-4">
-            <Loading />
+          <div
+            style={{ maxWidth: "34rem" }}
+            className="mx-auto mt-7 text-xs sm:text-base lg:text-lg text-zinc-500"
+          >
+            <ul className="w-full flex flex-col items-center relative bg-white transition-colors shadow-xl rounded overflow-hidden">
+              {todos.map((todo) => (
+                <TodoItem key={todo._id} todo={todo} />
+              ))}
+            </ul>
           </div>
-        )}
-
-        <div
-          style={{ maxWidth: "34rem" }}
-          className="mx-auto mt-7 text-xs sm:text-base lg:text-lg text-zinc-500"
-        >
-          <ul className="w-full flex flex-col items-center relative bg-white transition-colors shadow-xl rounded overflow-hidden">
-            {todos.map((todo) => (
-              <TodoItem todo={todo} />
-            ))}
-          </ul>
         </div>
-      </div>
-      :
-      <div className="mt-16 lg:mt-20 lg:text-lg">
-        <p className="text-center truncate text-white">{errMessage}</p>
-        {/* <p className="text-center">Please reload page</p> */}
-      </div>
-      }
-      </>
-    );
-
+      ) : (
+        <div className="mt-16 lg:mt-20 lg:text-lg relative">
+          <p className="text-center truncate text-white">{errMessage}</p>
+          {/* <p className="text-center">Please reload page</p> */}
+        </div>
+      )}
+    </>
+  );
 };
 
-export default Todos
+export default Todos;

@@ -34,7 +34,6 @@ const TodoItem = ({ todo }: any) => {
     <li
       data-completed={todo.completed}
       data-id={todo._id}
-      key={todo._id}
       className="todo-item relative flex items-center h-12 lg:h-16 px-5 lg:px-6 w-full border-b border-zinc-300"
     >
       <span className="checkbox-wrapper relative cursor-pointer z-10">
