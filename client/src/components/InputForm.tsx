@@ -27,7 +27,6 @@ const InputForm = () => {
         completed: false,
       })
     );
-    console.log(data);
     reset();
   };
 
@@ -39,15 +38,12 @@ const InputForm = () => {
       >
         <form
           onSubmit={handleSubmit(onSubmit)}
-          // onSubmit={()=>submitTodo}
           className="w-full mx-5 lg:mx-6 flex items-center"
         >
           <span className="relative cursor-pointer font-bold text-primary text-3xl">
             +
           </span>
           <input
-            // value={input}
-            // onChange={(e) => e.target.value}
             type="text"
             id="newTodo"
             className="bg-transparent w-full focus:outline-none px-3 pt-1 lg:px-6 text-xs sm:text-base lg:text-lg placeholder:text-gray-400"

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect } from "react";
 import TodoItem from "../components/TodoItem";
 import { RootState } from "../redux/store";
 import Loading from "./Loading";

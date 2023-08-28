@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import check from "../assets/icon-check.svg";
 import pencil from "../assets/icon-pencil.svg";
 import cross from "../assets/icon-cross.svg";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { RootState } from "../redux/store";
@@ -20,7 +20,8 @@ const TodoItem = ({ todo }: any) => {
 
   const handleCancelEdit = () => {
     setEditMode(false);
-    setUpdatedTodo(todo.todo); // Reset the form value
+    // Reset the form value
+    setUpdatedTodo(todo.todo);
   };
 
   const handleUpdateTodo = () => {
@@ -62,7 +63,6 @@ const TodoItem = ({ todo }: any) => {
       </span>
 
       {editMode ? (
-        // <form className="edit-form" >
         <input
           autoFocus
           className="relative flex-1 w-[inherit] ml-6 lg:px-6 sm:max-w-sm z-10 first-letter:capitalize focus:outline-offset-1"
@@ -71,7 +71,6 @@ const TodoItem = ({ todo }: any) => {
           onChange={(e) => setUpdatedTodo(e.target.value)}
         />
       ) : (
-        // </form>
         <p
           className={
             "todo-task relative px-3 lg:px-6 sm:max-w-sm z-10 first-letter:capitalize " +

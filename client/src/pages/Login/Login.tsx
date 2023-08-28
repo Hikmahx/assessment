@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { loginUser, removeError } from "../../redux/reducers/authSlice";
-import { useNavigate } from "react-router-dom";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { RootState } from "../../redux/store";
@@ -11,7 +10,7 @@ import { RootState } from "../../redux/store";
 const Login = () => {
   document.title = "Login Page";
 
-  const { loading, userInfo, error, errMsg } = useSelector(
+  const { loading, error, errMsg } = useSelector(
     (state: RootState) => state.auth
   );
   const dispatch: ThunkDispatch<RootState, null, AnyAction> = useDispatch();
@@ -29,25 +28,15 @@ const Login = () => {
     mode: "onChange",
   });
 
-  const navigate = useNavigate();
-  // redirect authenticated user to profile screen
-  useEffect(() => {
-    if (userInfo) {
-      navigate("/user-profile");
-      // eslint-disable-next-line
-    }
-  }, [navigate, userInfo]);
-
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     dispatch(loginUser(data));
-    console.log(data)
   };
 
   useEffect(() => {
     // Error message is remove in case user makes an error in other pages
-    removeErrMsg()
-      // eslint-disable-next-line
-    }, []);  
+    removeErrMsg();
+    // eslint-disable-next-line
+  }, []);
 
   const removeErrMsg = () => {
     dispatch(removeError());
@@ -69,7 +58,6 @@ const Login = () => {
             <div className="relative w-full  mb-2 py-3">
               <input
                 id="email"
-                // name="email"
                 type="email"
                 className="peer h-10 w-full border-b-2 border-grayish-blue text-very-dark-blue placeholder-transparent focus:outline-none focus:bordr-zinc-600e"
                 placeholder="email"

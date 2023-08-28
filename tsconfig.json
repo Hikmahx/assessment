@@ -12,9 +12,9 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "*": ["*"] // Adjust to match the root directory
+      "*": ["*"]
     }
   },
-  "include": ["**/*.ts"], // Adjust this to include all TypeScript files
+  "include": ["**/*.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

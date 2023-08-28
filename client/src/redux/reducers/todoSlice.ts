@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { RootState } from '../store'; // Adjust the path as needed
+import { RootState } from '../store';
 
 interface KnownError {
   errMessage: string;
@@ -23,13 +23,8 @@ interface TodoState {
   loading: boolean;
   error: boolean;
   errMessage: string;
-  todos: TodoItem[]; // Make sure it's TodoItem[]
+  todos: TodoItem[]; 
 }
-
-// let userToken = localStorage.getItem("userToken")
-//   ? localStorage.getItem("userToken")
-//   : null;
-
 
 export const addTodo = createAsyncThunk(
   "todos/addTodo",
@@ -40,7 +35,6 @@ export const addTodo = createAsyncThunk(
       const config = {
         headers: {
           "Content-Type": "application/json",
-          // "x-auth-token": userToken,
           'x-auth-token': userToken,
         },
       };
@@ -68,7 +62,6 @@ export const getTodos = createAsyncThunk(
       const config = {
         headers: {
           "Content-Type": "application/json",
-          // "x-auth-token": userToken,
           'x-auth-token': userToken,
         },
       };
@@ -95,7 +88,6 @@ export const updateTodo = createAsyncThunk(
       const config = {
         headers: {
           "Content-Type": "application/json",
-          // "x-auth-token": userToken,
           'x-auth-token': userToken,
         },
       };
@@ -124,7 +116,6 @@ export const deleteTodo = createAsyncThunk(
       const config = {
         headers: {
           "Content-Type": "application/json",
-          // "x-auth-token": userToken,
           'x-auth-token': userToken,
         },
       };
@@ -148,7 +139,6 @@ const initialState: TodoState = {
   todos: [],
   error: false,
   errMessage: "",
-  // total: 0,
   loading: false,
 };
 
@@ -158,7 +148,6 @@ const TodoSlice = createSlice({
   reducers: {
     clearTodos: (state) => {
       state.todos = [];
-      // userToken = null;
     },
   },
   extraReducers: (builder) => {

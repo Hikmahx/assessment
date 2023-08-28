@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express"; // Import express and type definitions
+import express, { Request, Response } from "express"; 
 import dotenv from "dotenv";
 import connectDB from './config/db';
 import path from "path";

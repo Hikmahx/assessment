@@ -103,6 +103,7 @@ export const getUserDetails = createAsyncThunk(
 );
 
 // initialize userToken from local storage
+// eslint-disable-next-line
 const userToken = localStorage.getItem("userToken")
   ? localStorage.getItem("userToken")
   : null;

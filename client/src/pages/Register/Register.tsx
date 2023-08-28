@@ -100,7 +100,6 @@ const Register = () => {
             <div className="relative w-full lg:w-[45%] mb-2 py-3">
               <input
                 id="lastname"
-                // name="lastname"
                 type="text"
                 className="peer h-10 w-full border-b-2 border-grayish-blue text-very-dark-blue placeholder-transparent focus:outline-none focus:bordr-zinc-600e"
                 placeholder="Last Name"
@@ -123,7 +122,6 @@ const Register = () => {
             <div className="relative w-full  mb-2 py-3">
               <input
                 id="email"
-                // name="email"
                 type="email"
                 className="peer h-10 w-full border-b-2 border-grayish-blue text-very-dark-blue placeholder-transparent focus:outline-none focus:bordr-zinc-600e"
                 placeholder="email"
@@ -150,7 +148,6 @@ const Register = () => {
             <div className="relative w-full lg:w-[45%] mb-6 py-3">
               <input
                 id="password"
-                // name="password"
                 type="password"
                 className="peer h-10 w-full border-b-2 border-grayish-blue text-very-dark-blue placeholder-transparent focus:outline-none focus:bordr-zinc-600e"
                 placeholder="Password"
@@ -177,7 +174,6 @@ const Register = () => {
             <div className="relative w-full lg:w-[45%] mb-6 py-3">
               <input
                 id="confirm-password"
-                // name="confirm-password"
                 type="password"
                 className="peer h-10 w-full border-b-2 border-grayish-blue text-very-dark-blue placeholder-transparent focus:outline-none focus:bordr-zinc-600e"
                 placeholder="Confirm Password"
