@@ -65,7 +65,7 @@ const TodoItem = ({ todo }: any) => {
         // <form className="edit-form" >
         <input
           autoFocus
-          className="relative mx-6 lg:px-6 sm:max-w-sm z-10 first-letter:capitalize focus:outline-offset-1"
+          className="relative flex-1 w-[inherit] ml-6 lg:px-6 sm:max-w-sm z-10 first-letter:capitalize focus:outline-offset-1"
           type="text"
           value={updatedTodo}
           onChange={(e) => setUpdatedTodo(e.target.value)}
@@ -96,6 +96,13 @@ const TodoItem = ({ todo }: any) => {
               alt="check-icon"
               className="w-4 h-4 lg:w-6 lg:h-6 m-2 lg:m-3 cursor-pointer"
             /> */}
+
+            <img
+              onClick={handleCancelEdit}
+              src={cross}
+              alt="check-icon"
+              className="w-4 h-4 lg:w-6 lg:h-6 m-2 lg:m-3 cursor-pointer"
+            />
             <span className="cursor-pointer" onClick={handleUpdateTodo}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -112,13 +119,6 @@ const TodoItem = ({ todo }: any) => {
                 />
               </svg>
             </span>
-
-            <img
-              onClick={handleCancelEdit}
-              src={cross}
-              alt="check-icon"
-              className="w-4 h-4 lg:w-6 lg:h-6 m-2 lg:m-3 cursor-pointer"
-            />
           </>
         ) : (
           <>

@@ -3,7 +3,7 @@ import React from "react";
 const Loading = () => {
   return (
     <div
-      className=" text-white font-bold animate-bounce inline-block border-5 rounded-full relative"
+      className="absolute text-white font-bold animate-bounce inline-block rounded-full"
     >
       <span className="">Loading...</span>
     </div>
